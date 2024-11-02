@@ -1,0 +1,45 @@
+
+#ifndef LAB2_SEM3_QUICKSORTER_H
+#define LAB2_SEM3_QUICKSORTER_H
+
+#include <functional>
+#include "ISorter.h"
+
+template <typename T>
+class QuickSorter : public ISorter<T> {
+private:
+    std::function<bool(const T&, const T&)> comparator;
+    static HelpClass helpClass;
+public:
+    QuickSorter(std::function<bool(const T&, const T&)> comp = helpClass.descending)
+            : comparator(comp) {}
+
+    void sort(LinkedListSequence<T> *sequence) override {
+        QuickSort(sequence, 0, sequence->getLength() - 1);
+    }
+
+private:
+    void QuickSort(LinkedListSequence<T> *sequence, int low, int high) {
+        if (low < high) {
+            int pivotIndex = partition(sequence, low, high);
+            QuickSort(sequence, low, pivotIndex - 1);
+            QuickSort(sequence, pivotIndex + 1, high);
+        }
+    }
+
+    // Функция для разбиения массива относительно опорного элемента
+    int partition(LinkedListSequence<T> *sequence, int low, int high) {
+        T pivot = (*sequence)[high];
+        int i = low - 1;
+
+        for (int j = low; j < high; ++j) {
+            if (comparator((*sequence)[j], pivot)) {
+                ++i;
+                helpClass.swap((*sequence)[i], (*sequence)[j]);
+            }
+        }
+        helpClass.swap((*sequence)[i + 1], (*sequence)[high]);
+        return i + 1;
+    }
+};
+#endif //LAB2_SEM3_QUICKSORTER_H

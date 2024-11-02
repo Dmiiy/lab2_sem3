@@ -1,0 +1,63 @@
+#ifndef BATCHERSORTER_H
+#define BATCHERSORTER_H
+
+#include <functional>
+#include "ISorter.h"
+
+template <typename T>
+class BatcherSorter : public ISorter<T> {
+private:
+    std::function<bool(const T&, const T&)> comparator;
+    static HelpClass helpClass;
+public:
+    BatcherSorter(std::function<bool(const T&, const T&)> comp = helpClass.descending)
+            : comparator(comp) {}
+
+    void sort(LinkedListSequence<T> *sequence) override {
+        mergeSort(sequence, 0, sequence->getLength());
+    }
+
+private:
+    void mergeSort(LinkedListSequence<T> *sequence, int left, int right) {
+        if (right - left < 2) return; // Базовый случай
+
+        int mid = (left + right) / 2;
+
+        mergeSort(sequence, left, mid);
+        mergeSort(sequence, mid, right);
+        merge(sequence, left, mid, right);
+    }
+
+    void merge(LinkedListSequence<T> *sequence, int left, int mid, int right) {
+        int leftSize = mid - left;
+        int rightSize = right - mid;
+
+        LinkedListSequence<T> leftArray;
+        LinkedListSequence<T> rightArray;
+
+        for (int i = 0; i < leftSize; ++i)
+            leftArray.append((*sequence)[left + i]);
+        for (int i = 0; i < rightSize; ++i)
+            rightArray.append((*sequence)[mid + i]);
+
+        // Слияние
+        int i = 0, j = 0, k = left;
+        while (i < leftSize && j < rightSize) {
+            if (comparator(leftArray[i], rightArray[j])) {
+                (*sequence)[k++] = leftArray[i++];
+            } else {
+                (*sequence)[k++] = rightArray[j++];
+            }
+        }
+
+        while (i < leftSize) {
+            (*sequence)[k++] = leftArray[i++];
+        }
+
+        while (j < rightSize) {
+            (*sequence)[k++] = rightArray[j++];
+        }
+    }
+};
+
+#endif // BATCHERSORTER_H
