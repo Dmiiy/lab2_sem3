@@ -10,6 +10,7 @@ add_executable(lab2_sem3 main.cpp
         SortingTime.h
         MainWindow.h
         SortingStudents.h
+        include/sorting/User.h
 )
 
 target_link_libraries(lab2_sem3

@@ -24,6 +24,7 @@
 #include "include/animation/MergeSortWidget.h"
 #include "include/animation/InsertionSortWidget.h"
 #include "include/animation/BinaryInsertionSortWidget.h"
+#include "SortingStudents.h"
 //#include "include/animation/BatcherSortWidget.h" // Убедитесь, что этот заголовок доступен
 
 class MainWindow : public QMainWindow {
@@ -170,6 +171,7 @@ public:
         connect(binaryInsertionSortButton, &QPushButton::clicked, this, &MainWindow::onShowBinaryInsertionSortAnimation);
         //connect(batcherSortButton, &QPushButton::clicked, this, &MainWindow::onShowBatcherSortAnimation);
         connect(openSortingTimeButton, &QPushButton::clicked, this, &MainWindow::onOpenSortingTime);
+        connect(openSortingStudentsButton, &QPushButton::clicked, this, &MainWindow::onOpenSortingStudents);
     }
 
 private slots:
@@ -389,6 +391,11 @@ private slots:
     void onOpenSortingTime() {
         SortingTime *sortingTimeWindow = new SortingTime();
         sortingTimeWindow->show();
+    }
+
+    void onOpenSortingStudents() {
+        SortingStudents *sortingStudentsWindow = new SortingStudents();
+        sortingStudentsWindow->show();
     }
 
 private:

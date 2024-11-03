@@ -32,22 +32,22 @@ public:
 
     virtual Sequence<T> *concat(Sequence<T> *list) = 0;
 
-    virtual int findSubsequence(Sequence<T> &subSequence) {
-        int subSeqLen = subSequence.getLength();
-        for (int start = 0; start <= getLength() - subSeqLen; start++) {
-            bool match = true;
-            for (int i = 0; i < subSeqLen; i++) {
-                if (get(start + i) != subSequence.get(i)) {
-                    match = false;
-                    break;
-                }
-            }
-            if (match) {
-                return start;
-            }
-        }
-        return -1;
-    };
+//    virtual int findSubsequence(Sequence<T> &subSequence) {
+//        int subSeqLen = subSequence.getLength();
+//        for (int start = 0; start <= getLength() - subSeqLen; start++) {
+//            bool match = true;
+//            for (int i = 0; i < subSeqLen; i++) {
+//                if (get(start + i) != subSequence.get(i)) {
+//                    match = false;
+//                    break;
+//                }
+//            }
+//            if (match) {
+//                return start;
+//            }
+//        }
+//        return -1;
+//    };
 
     virtual Sequence<T> *map(T (*f)(T)) const = 0;
 
