@@ -12,7 +12,6 @@ private:
     static HelpClass helpClass;
 
 public:
-    // Конструктор принимает компаратор, по умолчанию используется по возрастанию
     CountingSorter(std::function<bool(const T&, const T&)> comp = helpClass.ascending)
             : comparator(comp) {}
 

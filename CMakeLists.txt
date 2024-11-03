@@ -7,7 +7,9 @@ find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
 
 add_executable(lab2_sem3 main.cpp
+        SortingTime.h
         MainWindow.h
+        SortingStudents.h
 )
 
 target_link_libraries(lab2_sem3
