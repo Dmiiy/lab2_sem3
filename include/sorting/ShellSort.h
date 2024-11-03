@@ -4,16 +4,18 @@
 #include <functional>
 #include "ISorter.h"
 
+
 template <typename T>
 class ShellSorter : public ISorter<T> {
 private:
     std::function<bool(const T&, const T&)> comparator;
     static HelpClass helpClass;
+
 public:
     ShellSorter(std::function<bool(const T&, const T&)> comp = helpClass.descending)
             : comparator(comp) {}
 
-    void sort(LinkedListSequence<T> *sequence) override {
+    void sort(ArraySequence<T> *sequence) override {
         int n = sequence->getLength();
 
         // Начинаем с большого шага и уменьшаем его
@@ -32,5 +34,6 @@ public:
         }
     }
 };
-
+template <typename T>
+HelpClass ShellSorter<T>::helpClass;
 #endif // SHELLSORTER_H

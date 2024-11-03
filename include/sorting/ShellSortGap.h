@@ -8,28 +8,31 @@ template <typename T>
 class ShellSorterWithGap : public ISorter<T> {
 private:
     std::function<bool(const T&, const T&)> comparator;
-    LinkedListSequence<int> gaps;
+    ArraySequence<int> gaps; // Изменено на ArraySequence
     static HelpClass helpClass;
+
 public:
-    ShellSorterWithGap(LinkedListSequence<int> gapSequence, std::function<bool(const T&, const T&)> comp = helpClass.descending)
+    ShellSorterWithGap(ArraySequence<int> gapSequence, std::function<bool(const T&, const T&)> comp = helpClass.descending)
             : gaps(gapSequence), comparator(comp) {}
 
-    void sort(LinkedListSequence<T> *sequence) override {
+    void sort(ArraySequence<T> *sequence) override {
         for (int i = 0; i < gaps.getLength(); i++) {
             int gap = gaps[i];
             // Вставляем элементы в подмассивы, определяемые разницей
-            for (int i = gap; i < sequence->getLength(); i++) {
-                T temp = (*sequence)[i];
-                int j;
+            for (int j = gap; j < sequence->getLength(); j++) {
+                T temp = (*sequence)[j];
+                int k;
 
                 // Сравниваем и перемещаем элементы, чтобы создать отсортированный подмассив
-                for (j = i; j >= gap && comparator(temp, (*sequence)[j - gap]); j -= gap)
-                    (*sequence)[j] = (*sequence)[j - gap];
+                for (k = j; k >= gap && comparator(temp, (*sequence)[k - gap]); k -= gap)
+                    (*sequence)[k] = (*sequence)[k - gap];
 
-                (*sequence)[j] = temp;
+                (*sequence)[k] = temp;
             }
         }
     }
 };
 
+template <typename T>
+HelpClass ShellSorterWithGap<T>::helpClass;
 #endif // SHELLSORTER_GAP_H

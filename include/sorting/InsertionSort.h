@@ -9,11 +9,12 @@ class InsertionSorter : public ISorter<T> {
 private:
     std::function<bool(const T&, const T&)> comparator;
     static HelpClass helpClass;
+
 public:
     InsertionSorter(std::function<bool(const T&, const T&)> comp = helpClass.descending)
             : comparator(comp) {}
 
-    void sort(LinkedListSequence<T> *sequence) override {
+    void sort(ArraySequence<T> *sequence) override {
         int n = sequence->getLength();
         for (int i = 1; i < n; ++i) {
             T key = (*sequence)[i];
@@ -28,4 +29,6 @@ public:
     }
 };
 
+template <typename T>
+HelpClass InsertionSorter<T>::helpClass;
 #endif // INSERTIONSORTER_H

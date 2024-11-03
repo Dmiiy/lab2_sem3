@@ -9,11 +9,12 @@ class BubbleSorter : public ISorter<T> {
 private:
     std::function<bool(const T&, const T&)> comparator;
     static HelpClass helpClass;
+
 public:
     BubbleSorter(std::function<bool(const T&, const T&)> comp = helpClass.descending)
             : comparator(comp) {}
 
-    void sort(LinkedListSequence<T> *sequence) override {
+    void sort(ArraySequence<T> *sequence) override {
         int n = sequence->getLength();
         for (int i = 0; i < n - 1; ++i) {
             for (int j = 0; j < n - i - 1; ++j) {
@@ -24,5 +25,6 @@ public:
         }
     }
 };
-
+template <typename T>
+HelpClass BubbleSorter<T>::helpClass;
 #endif // BUBBLESORTER_H

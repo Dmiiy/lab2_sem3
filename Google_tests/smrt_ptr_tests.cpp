@@ -4,7 +4,6 @@
 #include "..\include\smrt_ptr\UniquePtr.h"
 #include "..\include\smrt_ptr\SharedPtr.h"
 #include "..\include\sequence\Sequence.h"
-#include "..\include\sequence\LinkedListSequence.h"
 
 #include "lib/googletest/include/gtest/gtest.h"
 

@@ -9,11 +9,12 @@ class ShakerSorter : public ISorter<T> {
 private:
     std::function<bool(const T&, const T&)> comparator;
     static HelpClass helpClass;
+
 public:
     ShakerSorter(std::function<bool(const T&, const T&)> comp = helpClass.descending)
             : comparator(comp) {}
 
-    void sort(LinkedListSequence<T> *sequence) override {
+    void sort(ArraySequence<T> *sequence) override {
         bool swapped = true;
         int start = 0;
         int end = sequence->getLength() - 1;
@@ -34,9 +35,9 @@ public:
             swapped = false;
             --end;
 
-            for (int i = end - 1; i >= start; --i) {
-                if (!comparator((*sequence)[i], (*sequence)[i + 1])) {
-                    helpClass.swap((*sequence)[i], (*sequence)[i + 1]);
+            for (int i = end; i > start; --i) {
+                if (!comparator((*sequence)[i - 1], (*sequence)[i])) {
+                    helpClass.swap((*sequence)[i - 1], (*sequence)[i]);
                     swapped = true;
                 }
             }
@@ -45,5 +46,6 @@ public:
         }
     }
 };
-
+template <typename T>
+HelpClass ShakerSorter<T>::helpClass;
 #endif // SHAKERSORTER_H

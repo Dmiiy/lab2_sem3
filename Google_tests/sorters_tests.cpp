@@ -1,10 +1,10 @@
 #include <gtest/gtest.h>
-#include "../include\sorting\BubbleSort.h"
-#include "../include\sorting\SelectionSort.h"
-#include "../include\sorting\CountingSort.h"
-#include "../include\sorting\InsertionSort.h"
-#include "../include\sorting\MergeSort.h"
-#include "../include\sorting\QuickSorter.h"
+#include "../include/sorting/BubbleSort.h"
+#include "../include/sorting/SelectionSort.h"
+#include "../include/sorting/CountingSort.h"
+#include "../include/sorting/InsertionSort.h"
+#include "../include/sorting/MergeSort.h"
+#include "../include/sorting/QuickSorter.h"
 #include "../include/sorting/ShakerSort.h"
 #include "../include/sorting/BinaryInsertionSort.h"
 #include "../include/sorting/HeapSort.h"
@@ -13,7 +13,7 @@
 #include "../include/sorting/ShellSortGap.h"
 
 TEST(BubbleSort, BasicSort) {
-    LinkedListSequence<int> list;
+    ArraySequence<int> list;
     list.append(3);
     list.append(1);
     list.append(4);
@@ -31,7 +31,7 @@ TEST(BubbleSort, BasicSort) {
 }
 
 TEST(BubbleSort, EmptyList) {
-    LinkedListSequence<int> list;
+    ArraySequence<int> list;
     BubbleSorter<int> sorter([](const int &a, const int &b) { return a < b; });
     sorter.sort(&list);
 
@@ -39,7 +39,7 @@ TEST(BubbleSort, EmptyList) {
 }
 
 TEST(BubbleSort, SingleElement) {
-    LinkedListSequence<int> list;
+    ArraySequence<int> list;
     list.append(42);
 
     BubbleSorter<int> sorter([](const int &a, const int &b) { return a < b; });
@@ -50,7 +50,7 @@ TEST(BubbleSort, SingleElement) {
 }
 
 TEST(ShakerSort, BasicSort) {
-    LinkedListSequence<int> list;
+    ArraySequence<int> list;
     list.append(9);
     list.append(7);
     list.append(5);
@@ -68,7 +68,7 @@ TEST(ShakerSort, BasicSort) {
 }
 
 TEST(ShakerSort, ReverseSort) {
-    LinkedListSequence<int> list;
+    ArraySequence<int> list;
     list.append(1);
     list.append(3);
     list.append(5);
@@ -84,8 +84,9 @@ TEST(ShakerSort, ReverseSort) {
     ASSERT_EQ(list.get(3), 3);
     ASSERT_EQ(list.get(4), 1);
 }
+
 TEST(InsertionSort, BasicSort) {
-    LinkedListSequence<int> list;
+    ArraySequence<int> list;
     list.append(10);
     list.append(2);
     list.append(8);
@@ -103,7 +104,7 @@ TEST(InsertionSort, BasicSort) {
 }
 
 TEST(SelectionSort, BasicSort) {
-    LinkedListSequence<int> list;
+    ArraySequence<int> list;
     list.append(7);
     list.append(2);
     list.append(5);
@@ -121,7 +122,7 @@ TEST(SelectionSort, BasicSort) {
 }
 
 TEST(MergeSort, BasicSort) {
-    LinkedListSequence<int> list;
+    ArraySequence<int> list;
     list.append(8);
     list.append(4);
     list.append(5);
@@ -139,7 +140,7 @@ TEST(MergeSort, BasicSort) {
 }
 
 TEST(MergeSort, AlreadySorted) {
-    LinkedListSequence<int> list;
+    ArraySequence<int> list;
     list.append(1);
     list.append(2);
     list.append(3);
@@ -155,8 +156,9 @@ TEST(MergeSort, AlreadySorted) {
     ASSERT_EQ(list.get(3), 4);
     ASSERT_EQ(list.get(4), 5);
 }
+
 TEST(CountingSort, BasicSort) {
-    LinkedListSequence<int> list;
+    ArraySequence<int> list;
     list.append(5);
     list.append(1);
     list.append(4);
@@ -172,8 +174,9 @@ TEST(CountingSort, BasicSort) {
     ASSERT_EQ(list.get(3), 4);
     ASSERT_EQ(list.get(4), 5);
 }
+
 TEST(BinaryInsertionSort, BasicSort) {
-    LinkedListSequence<int> list;
+    ArraySequence<int> list;
     list.append(7);
     list.append(3);
     list.append(5);
@@ -189,8 +192,9 @@ TEST(BinaryInsertionSort, BasicSort) {
     ASSERT_EQ(list.get(3), 7);
     ASSERT_EQ(list.get(4), 9);
 }
+
 TEST(QuickSort, BasicSort) {
-    LinkedListSequence<int> list;
+    ArraySequence<int> list;
     list.append(9);
     list.append(4);
     list.append(6);
@@ -208,7 +212,7 @@ TEST(QuickSort, BasicSort) {
 }
 
 TEST(HeapSort, BasicSort) {
-    LinkedListSequence<int> list;
+    ArraySequence<int> list;
     list.append(4);
     list.append(10);
     list.append(3);
@@ -226,7 +230,7 @@ TEST(HeapSort, BasicSort) {
 }
 
 TEST(HeapSort, EmptyList) {
-    LinkedListSequence<int> list;
+    ArraySequence<int> list;
     HeapSorter<int> sorter([](const int &a, const int &b) { return a < b; });
     sorter.sort(&list);
 
@@ -234,7 +238,7 @@ TEST(HeapSort, EmptyList) {
 }
 
 TEST(HeapSort, SingleElement) {
-    LinkedListSequence<int> list;
+    ArraySequence<int> list;
     list.append(42);
 
     HeapSorter<int> sorter([](const int &a, const int &b) { return a < b; });
@@ -243,8 +247,9 @@ TEST(HeapSort, SingleElement) {
     ASSERT_EQ(list.get(0), 42);
     ASSERT_EQ(list.getLength(), 1);
 }
+
 TEST(ShellSort, BasicSort) {
-    LinkedListSequence<int> list;
+    ArraySequence<int> list;
     list.append(8);
     list.append(5);
     list.append(2);
@@ -262,7 +267,7 @@ TEST(ShellSort, BasicSort) {
 }
 
 TEST(ShellSort, AlreadySorted) {
-    LinkedListSequence<int> list;
+    ArraySequence<int> list;
     list.append(1);
     list.append(2);
     list.append(3);
@@ -279,66 +284,78 @@ TEST(ShellSort, AlreadySorted) {
     ASSERT_EQ(list.get(4), 5);
 }
 
-TEST(ShellSort, EmptyList) {
-    LinkedListSequence<int> list;
-    ShellSorter<int> sorter([](const int &a, const int &b) { return a < b; });
+TEST(ShellSortGap, BasicSort) {
+    ArraySequence<int> list;
+    list.append(20);
+    list.append(35);
+    list.append(15);
+    list.append(40);
+    list.append(10);
+
+    // Определим последовательность разностей для сортировки Шелла
+    ArraySequence<int> gapSequence;
+    gapSequence.append(3); // Пример разностей: сначала 3, затем 1
+    gapSequence.append(1);
+
+    // Передаем разности и компаратор в конструктор сортировщика
+    ShellSorterWithGap<int> sorter(gapSequence, [](const int &a, const int &b) { return a < b; });
+    sorter.sort(&list);
+
+    ASSERT_EQ(list.get(0), 10);
+    ASSERT_EQ(list.get(1), 15);
+    ASSERT_EQ(list.get(2), 20);
+    ASSERT_EQ(list.get(3), 35);
+    ASSERT_EQ(list.get(4), 40);
+}
+
+TEST(ShellSortGap, EmptyList) {
+    ArraySequence<int> list;
+
+    // Определим пустую последовательность разностей, так как список пуст
+    ArraySequence<int> gapSequence;
+
+    ShellSorterWithGap<int> sorter(gapSequence, [](const int &a, const int &b) { return a < b; });
     sorter.sort(&list);
 
     ASSERT_EQ(list.getLength(), 0); // Проверяем, что длина списка не изменилась
 }
-//TEST(ShellSortWithGap, BasicSort) {
-//    LinkedListSequence<int> list;
-//    list.append(12);
-//    list.append(11);
-//    list.append(13);
-//    list.append(5);
-//    list.append(6);
-//
-//    LinkedListSequence<int> gaps;
-//    gaps.append(5);
-//    gaps.append(3);
-//    gaps.append(1);
-//
-//    ShellSorterWithGap<int> sorter(gaps, [](const int &a, const int &b) { return a < b; });
-//    sorter.sort(&list);
-//
-//    ASSERT_EQ(list.get(0), 5);
-//    ASSERT_EQ(list.get(1), 6);
-//    ASSERT_EQ(list.get(2), 11);
-//    ASSERT_EQ(list.get(3), 12);
-//    ASSERT_EQ(list.get(4), 13);
-//}
 
-//TEST(ShellSortWithGap, EmptyList) {
-//    LinkedListSequence<int> list;
-//    LinkedListSequence<int> gaps;
-//    gaps.append(1);// Смещение не имеет значения для пустого списка
-//    ShellSorterWithGap<int> sorter(gaps, [](const int &a, const int &b) { return a < b; });
-//    sorter.sort(&list);
-//
-//    ASSERT_EQ(list.getLength(), 0); // Проверяем, что длина списка не изменилась
-//}
-//
-//TEST(BatcherSort, BasicSort) {
-//    LinkedListSequence<int> list;
-//    list.append(6);
-//    list.append(3);
-//    list.append(8);
-//    list.append(1);
-//    list.append(5);
-//
-//    BatcherSorter<int> sorter([](const int &a, const int &b) { return a < b; });
-//    sorter.sort(&list);
-//
-//    ASSERT_EQ(list.get(0), 1);
-//    ASSERT_EQ(list.get(1), 3);
-//    ASSERT_EQ(list.get(2), 5);
-//    ASSERT_EQ(list.get(3), 6);
-//    ASSERT_EQ(list.get(4), 8);
-//}
+TEST(ShellSortGap, SingleElement) {
+    ArraySequence<int> list;
+    list.append(42);
+
+    // Последовательность разностей для одного элемента не важна
+    ArraySequence<int> gapSequence;
+    gapSequence.append(1);
+
+    ShellSorterWithGap<int> sorter(gapSequence, [](const int &a, const int &b) { return a < b; });
+    sorter.sort(&list);
+
+    ASSERT_EQ(list.get(0), 42);
+    ASSERT_EQ(list.getLength(), 1);
+}
+
+
+TEST(BatcherSort, BasicSort) {
+    ArraySequence<int> list;
+    list.append(4);
+    list.append(2);
+    list.append(8);
+    list.append(6);
+    list.append(1);
+
+    BatcherSorter<int> sorter([](const int &a, const int &b) { return a < b; });
+    sorter.sort(&list);
+
+    ASSERT_EQ(list.get(0), 1);
+    ASSERT_EQ(list.get(1), 2);
+    ASSERT_EQ(list.get(2), 4);
+    ASSERT_EQ(list.get(3), 6);
+    ASSERT_EQ(list.get(4), 8);
+}
 
 TEST(BatcherSort, AlreadySorted) {
-    LinkedListSequence<int> list;
+    ArraySequence<int> list;
     list.append(1);
     list.append(2);
     list.append(3);
@@ -353,12 +370,4 @@ TEST(BatcherSort, AlreadySorted) {
     ASSERT_EQ(list.get(2), 3);
     ASSERT_EQ(list.get(3), 4);
     ASSERT_EQ(list.get(4), 5);
-}
-
-TEST(BatcherSort, EmptyList) {
-    LinkedListSequence<int> list;
-    BatcherSorter<int> sorter([](const int &a, const int &b) { return a < b; });
-    sorter.sort(&list);
-
-    ASSERT_EQ(list.getLength(), 0); // Проверяем, что длина списка не изменилась
 }

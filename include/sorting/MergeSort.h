@@ -4,21 +4,23 @@
 #include <functional>
 #include "ISorter.h"
 
+
 template <typename T>
 class MergeSorter : public ISorter<T> {
 private:
     std::function<bool(const T&, const T&)> comparator;
     static HelpClass helpClass;
+
 public:
     MergeSorter(std::function<bool(const T&, const T&)> comp = helpClass.descending)
             : comparator(comp) {}
 
-    void sort(LinkedListSequence<T> *sequence) override {
+    void sort(ArraySequence<T> *sequence) override {
         mergeSort(sequence, 0, sequence->getLength() - 1);
     }
 
 private:
-    void mergeSort(LinkedListSequence<T> *sequence, int left, int right) {
+    void mergeSort(ArraySequence<T> *sequence, int left, int right) {
         if (left < right) {
             int mid = left + (right - left) / 2;
             mergeSort(sequence, left, mid);
@@ -27,12 +29,12 @@ private:
         }
     }
 
-    void merge(LinkedListSequence<T> *sequence, int left, int mid, int right) {
+    void merge(ArraySequence<T> *sequence, int left, int mid, int right) {
         int n1 = mid - left + 1;
         int n2 = right - mid;
 
-        LinkedListSequence<T> L;
-        LinkedListSequence<T> R;
+        ArraySequence<T> L;
+        ArraySequence<T> R;
 
         for (int i = 0; i < n1; ++i)
             L.append((*sequence)[left + i]);
@@ -64,4 +66,6 @@ private:
     }
 };
 
+template <typename T>
+HelpClass MergeSorter<T>::helpClass;
 #endif // MERGESORTER_H

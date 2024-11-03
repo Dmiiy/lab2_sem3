@@ -9,11 +9,12 @@ class HeapSorter : public ISorter<T> {
 private:
     std::function<bool(const T&, const T&)> comparator;
     static HelpClass helpClass;
+
 public:
     HeapSorter(std::function<bool(const T&, const T&)> comp = helpClass.descending)
             : comparator(comp) {}
 
-    void sort(LinkedListSequence<T> *sequence) override {
+    void sort(ArraySequence<T> *sequence) override {
         int n = sequence->getLength();
 
         // Построение кучи (перегруппировка массива)
@@ -28,7 +29,7 @@ public:
     }
 
 private:
-    void heapify(LinkedListSequence<T> *sequence, int n, int i) {
+    void heapify(ArraySequence<T> *sequence, int n, int i) {
         int largest = i; // Инициализация самого большого элемента как корня
         int left = 2 * i + 1;
         int right = 2 * i + 2;
@@ -50,5 +51,6 @@ private:
         }
     }
 };
-
+template <typename T>
+HelpClass HeapSorter<T>::helpClass;
 #endif // HEAPSORTER_H
