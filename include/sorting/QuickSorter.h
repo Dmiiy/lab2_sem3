@@ -15,6 +15,9 @@ public:
             : comparator(comp) {}
 
     void sort(ArraySequence<T> *sequence) override {
+        if (sequence==nullptr) {
+            throw SortExc("Sequence is null");
+        }
         QuickSort(sequence, 0, sequence->getLength() - 1);
     }
 

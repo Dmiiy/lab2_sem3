@@ -112,7 +112,6 @@ public:
         return data[index];
     }
 
-    // Изменяем метод resize для использования увеличивающейся емкости
     void resize(int newSize) {
         if (newSize < 0) throw "Negative size error";
         ensureCapacity(newSize);  // проверка и увеличение емкости при необходимости

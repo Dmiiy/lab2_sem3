@@ -15,6 +15,9 @@ public:
             : comparator(comp) {}
 
     void sort(ArraySequence<T> *sequence) override {
+        if (sequence==nullptr) {
+            throw SortExc("Sequence is null");
+        }
         bool swapped = true;
         int start = 0;
         int end = sequence->getLength() - 1;

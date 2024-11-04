@@ -15,7 +15,10 @@ public:
     BinaryInsertionSorter(std::function<bool(const T&, const T&)> comp = helpClass.descending)
             : comparator(comp) {}
 
-    void sort(ArraySequence<T> *sequence) override {
+    void sort(ArraySequence<T> *sequence) override{
+        if (sequence==nullptr) {
+            throw SortExc("Sequence is null");
+        }
         int n = sequence->getLength();
         for (int i = 1; i < n; ++i) {
             T key = (*sequence)[i];

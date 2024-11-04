@@ -16,6 +16,9 @@ public:
             : gaps(gapSequence), comparator(comp) {}
 
     void sort(ArraySequence<T> *sequence) override {
+        if (sequence==nullptr) {
+            throw SortExc("Sequence is null");
+        }
         for (int i = 0; i < gaps.getLength(); i++) {
             int gap = gaps[i];
             // Вставляем элементы в подмассивы, определяемые разницей

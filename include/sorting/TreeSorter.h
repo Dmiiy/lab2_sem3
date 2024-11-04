@@ -43,6 +43,9 @@ public:
             : comparator(comp) {}
 
     void sort(ArraySequence<T> *sequence) override {
+        if (sequence==nullptr) {
+            throw SortExc("Sequence is null");
+        }
         for (int i = 0; i < sequence->getLength(); ++i) {
             insert(root, (*sequence)[i]);
         }

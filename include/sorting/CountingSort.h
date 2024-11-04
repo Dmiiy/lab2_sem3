@@ -17,6 +17,9 @@ public:
             : comparator(comp) {}
 
     void sort(ArraySequence<T> *sequence) override {
+        if (sequence==nullptr) {
+            throw SortExc("Sequence is null");
+        }
         if (sequence->getLength() == 0) return;
 
         // Проверяем, что тип T является целочисленным
