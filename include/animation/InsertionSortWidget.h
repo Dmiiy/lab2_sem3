@@ -14,8 +14,8 @@ public:
         resize(800, 600);
 
         // Инициализируем массив случайными значениями
-        for (int i = 0; i < 50; ++i) {
-            array.push_back(rand() % 500 + 50);
+        for (int i = 0; i < 100; ++i) {
+            array.push_back(rand() % 500 + 10);
         }
 
         currentIndex = 1;  // Начинаем с первого элемента
@@ -26,7 +26,7 @@ public:
         connect(timer, &QTimer::timeout, this, &InsertionSortWidget::nextStep);
 
         // Стартуем таймер
-        timer->start(100);
+        timer->start(50);
 
         // Фиксируем начальное время
         startTime = QTime::currentTime();
@@ -90,7 +90,7 @@ private slots:
             int elapsed = startTime.msecsTo(QTime::currentTime());
             setWindowTitle(QString("Сортировка завершена за %1 мс").arg(elapsed));
 
-            timer->start(50);  // Перезапускаем таймер для закрашивания
+            timer->start(20);  // Перезапускаем таймер для закрашивания
         }
 
         // Обновляем виджет (вызываем paintEvent)

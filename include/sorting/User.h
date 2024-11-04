@@ -17,15 +17,12 @@ public:
             : firstName(firstName), lastName(lastName), age(age) {}
 
     QString getFirstName() const { return firstName; }
-
     void setFirstName(const QString &name) { firstName = name; }
 
     QString getLastName() const { return lastName; }
-
     void setLastName(const QString &surname) { lastName = surname; }
 
     int getAge() const { return age; }
-
     void setAge(int newAge) { age = newAge; }
 
     static User generateRandomUser() {

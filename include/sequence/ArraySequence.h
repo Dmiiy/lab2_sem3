@@ -1,8 +1,6 @@
 #ifndef ARRAYSEQUENCE_INCLUDED
 #define ARRAYSEQUENCE_INCLUDED
 
-#include <cwchar>
-
 #include "DynamicArray.h"
 #include "Sequence.h"
 
@@ -10,28 +8,29 @@ template<class T>
 class ArraySequence : public Sequence<T> {
 private:
     DynamicArray<T> data;
+
 public:
-    //Создание объекта
-    ArraySequence(T *data, int count) : data(data, count) {}
+    // Создание объекта
+    ArraySequence(T *items, int count) : data(items, count) {}
 
-    ArraySequence() : data() {};
+    ArraySequence() : data() {}
 
-    explicit ArraySequence(const DynamicArray<T> &array) : data(array) {};
+    explicit ArraySequence(const DynamicArray<T> &array) : data(array) {}
 
-    //Декомпозиция
+    // Декомпозиция
     T getFirst() const override {
         return data.get(0);
-    };
+    }
 
     T getLast() const override {
         return data.get(data.getSize() - 1);
-    };
+    }
 
     T get(int index) const override {
         return data.get(index);
-    };
+    }
 
-    //Перегруженные операторы
+    // Перегруженные операторы
     T operator[](int i) const override {
         return data[i];
     }
@@ -42,11 +41,11 @@ public:
 
     Sequence<T> *getSubsequence(int startIndex, int endIndex) const override {
         if (startIndex > endIndex) {
-            throw IndexOutOfRange(string("Index startIndex <= endIndex"));
+            throw "Index startIndex <= endIndex";
         }
         int size = endIndex - startIndex + 1;
         DynamicArray<T> da(size);
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size; ++i) {
             da[i] = get(startIndex + i);
         }
         return new ArraySequence<T>(da);
@@ -56,61 +55,58 @@ public:
         return data.getSize();
     }
 
-    //Операции
+    // Операции
     void append(T item) override {
         int size = data.getSize();
         data.resize(size + 1);
-        size = data.getSize();
-        data.set(size - 1, item);
-    };
+        data.set(size, item);
+    }
 
     void prepend(T item) override {
         int size = data.getSize();
         data.resize(size + 1);
-        size = data.getSize();
-        data.define_resize(size);
-        for (int i = size - 1; i >= 1; i--) {
+        data.define_resize(size + 1);
+        for (int i = size; i > 0; --i) {
             data[i] = data[i - 1];
         }
         data[0] = item;
         data.define_set(0, true);
-    };
+    }
 
     void insertAt(T item, int index) override {
-        int size=data.getSize();
+        int size = data.getSize();
         data.resize(size + 1);
-        size=data.getSize();
-        data.define_resize(size);
-        for (int i = size - 1; i > index; i--) {
+        data.define_resize(size + 1);
+        for (int i = size; i > index; --i) {
             data[i] = data[i - 1];
         }
         data.set(index, item);
-    };
+    }
 
     Sequence<T> *concat(Sequence<T> *list) override {
         auto *result = new ArraySequence<T>(this->data);
         result->data.resize(getLength() + list->getLength());
-        for (int i = 0; i < list->getLength(); i++) {
+        for (int i = 0; i < list->getLength(); ++i) {
             result->data.set(getLength() + i, list->get(i));
         }
         return result;
-    };
+    }
 
     void removeAt(int index) override {
         int size = data.getSize();
-        for (int i = index + 1; i < size; i++) {
+        for (int i = index + 1; i < size; ++i) {
             data[i - 1] = data[i];
         }
-        data.define_resize(size);
+        data.define_resize(size - 1);
         data.resize(size - 1);
     }
 
-    //Виртуальный деструктор
-    virtual ~ArraySequence<T>() = default;
+    // Виртуальный деструктор
+    virtual ~ArraySequence<T>() {}
 
     Sequence<T> *map(T (*f)(T)) const override {
         Sequence<T> *res = new ArraySequence<T>();
-        for (int i = 0; i < getLength(); i++) {
+        for (int i = 0; i < getLength(); ++i) {
             res->append(f(data.get(i)));
         }
         return res;
@@ -118,7 +114,7 @@ public:
 
     Sequence<T> *where(bool (*h)(T)) const override {
         auto *res = new ArraySequence<T>;
-        for (int i = 0; i < getLength(); i++) {
+        for (int i = 0; i < getLength(); ++i) {
             T item = data.get(i);
             if (h(item)) {
                 res->append(item);
@@ -129,7 +125,7 @@ public:
 
     T reduce(T (*f)(T, T)) const override {
         T result = data.get(0);
-        for (int i = 1; i < data.getSize(); i++) {
+        for (int i = 1; i < data.getSize(); ++i) {
             result = f(result, data.get(i));
         }
         return result;

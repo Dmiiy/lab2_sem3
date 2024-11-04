@@ -14,18 +14,17 @@
 #include <QRandomGenerator>
 #include <QComboBox>
 #include "SortingTime.h"
-#include "include/animation/BubbleSortWidget.h"
-#include "include/animation/CountingSortWidget.h"
-#include "include/animation/HeapSortWidget.h"
-#include "include/animation/QuickSortWidget.h"
-#include "include/animation/SelectionSortWidget.h"
-#include "include/animation/ShakerSortWidget.h"
-#include "include/animation/ShellSortWidget.h"
-#include "include/animation/MergeSortWidget.h"
-#include "include/animation/InsertionSortWidget.h"
-#include "include/animation/BinaryInsertionSortWidget.h"
+#include "animation/BubbleSortWidget.h"
+#include "animation/CountingSortWidget.h"
+#include "animation/HeapSortWidget.h"
+#include "animation/QuickSortWidget.h"
+#include "animation/SelectionSortWidget.h"
+#include "animation/ShakerSortWidget.h"
+#include "animation/MergeSortWidget.h"
+#include "animation/InsertionSortWidget.h"
+#include "animation/BinaryInsertionSortWidget.h"
 #include "SortingStudents.h"
-//#include "include/animation/BatcherSortWidget.h" // Убедитесь, что этот заголовок доступен
+#include "animation/EnhancedSelectionSortWidget.h"
 
 class MainWindow : public QMainWindow {
 public:
@@ -55,7 +54,9 @@ public:
                                              "Merge Sort",
                                              "Insertion Sort",
                                              "Binary Insertion Sort",
-                                             "Batcher Sort"
+                                             "Batcher Sort",
+                                             "Enhanced Selection Sort",
+                                             "Tree Sort"
                                      });
 
         // Добавляем новый QComboBox для выбора порядка сортировки
@@ -74,7 +75,9 @@ public:
                                                           "Merge Sort",
                                                           "Insertion Sort",
                                                           "Binary Insertion Sort",
-                                                          "Batcher Sort"
+                                                          "Batcher Sort",
+                                                          "Enhanced Selection Sort",
+                                                          "Tree Sort"
                                                   });
 
         // Добавляем новый QComboBox для выбора порядка сортировки
@@ -123,11 +126,12 @@ public:
         heapSortButton = new QPushButton("Heap Sort");
         selectionSortButton = new QPushButton("Selection Sort");
         shakerSortButton = new QPushButton("Shaker Sort");
-        shellSortButton = new QPushButton("Shell Sort");
         mergeSortButton = new QPushButton("Merge Sort");
         insertionSortButton = new QPushButton("Insertion Sort");
         binaryInsertionSortButton = new QPushButton("Binary Insertion Sort");
         batcherSortButton = new QPushButton("Batcher Sort");
+        enhancedSelectionSortButton = new QPushButton("Enhanced Selection Sort");
+
 
         // Добавляем кнопки на компоновку
         animationLayout->addWidget(bubbleSortButton);
@@ -136,11 +140,11 @@ public:
         animationLayout->addWidget(heapSortButton);
         animationLayout->addWidget(selectionSortButton);
         animationLayout->addWidget(shakerSortButton);
-        animationLayout->addWidget(shellSortButton);
         animationLayout->addWidget(mergeSortButton);
         animationLayout->addWidget(insertionSortButton);
         animationLayout->addWidget(binaryInsertionSortButton);
         animationLayout->addWidget(batcherSortButton);
+        animationLayout->addWidget(enhancedSelectionSortButton);
 
         // Кнопка для перехода к замеру времени
         QPushButton *openSortingTimeButton = new QPushButton("Замер времени сортировок");
@@ -165,13 +169,14 @@ public:
         connect(heapSortButton, &QPushButton::clicked, this, &MainWindow::onShowHeapSortAnimation);
         connect(selectionSortButton, &QPushButton::clicked, this, &MainWindow::onShowSelectionSortAnimation);
         connect(shakerSortButton, &QPushButton::clicked, this, &MainWindow::onShowShakerSortAnimation);
-        connect(shellSortButton, &QPushButton::clicked, this, &MainWindow::onShowShellSortAnimation);
         connect(mergeSortButton, &QPushButton::clicked, this, &MainWindow::onShowMergeSortAnimation);
         connect(insertionSortButton, &QPushButton::clicked, this, &MainWindow::onShowInsertionSortAnimation);
         connect(binaryInsertionSortButton, &QPushButton::clicked, this, &MainWindow::onShowBinaryInsertionSortAnimation);
+        connect(enhancedSelectionSortButton, &QPushButton::clicked, this, &MainWindow::onShowEnhancedSelectionSortAnimation);
         //connect(batcherSortButton, &QPushButton::clicked, this, &MainWindow::onShowBatcherSortAnimation);
         connect(openSortingTimeButton, &QPushButton::clicked, this, &MainWindow::onOpenSortingTime);
         connect(openSortingStudentsButton, &QPushButton::clicked, this, &MainWindow::onOpenSortingStudents);
+
     }
 
 private slots:
@@ -241,6 +246,14 @@ private slots:
         }
         if (selectedSortMethod == "Batcher Sort") {
             BatcherSorter<int> sorter(ascendingOrder ? helpClass.ascending : helpClass.descending);
+            sorter.sort(&array);
+        }
+        if (selectedSortMethod == "Tree Sort") {
+            TreeSorter<int> sorter(ascendingOrder ? helpClass.ascending : helpClass.descending);
+            sorter.sort(&array);
+        }
+        if (selectedSortMethod == "Enhanced Selection Sort") {
+            EnhancedSelectionSorter<int> sorter(ascendingOrder ? helpClass.ascending : helpClass.descending);
             sorter.sort(&array);
         }
         displayArray(array, "Отсортированный массив:");
@@ -325,6 +338,14 @@ private slots:
             BatcherSorter<int> sorter(ascendingOrder ? helpClass.ascending : helpClass.descending);
             sorter.sort(&array);
         }
+        if (selectedSortMethod == "Tree Sort") {
+            TreeSorter<int> sorter(ascendingOrder ? helpClass.ascending : helpClass.descending);
+            sorter.sort(&array);
+        }
+        if (selectedSortMethod == "Enhanced Selection Sort") {
+            EnhancedSelectionSorter<int> sorter(ascendingOrder ? helpClass.ascending : helpClass.descending);
+            sorter.sort(&array);
+        }
 
         displayArray(array, "Отсортированный массив:");
     }
@@ -368,10 +389,7 @@ private slots:
         shakerSortWidget->show();
     }
 
-    void onShowShellSortAnimation() {
-        ShellSortWidget *shellSortWidget = new ShellSortWidget();
-        shellSortWidget->show();
-    }
+
 
     void onShowMergeSortAnimation() {
         MergeSortWidget *mergeSortWidget = new MergeSortWidget();
@@ -386,6 +404,13 @@ private slots:
     void onShowBinaryInsertionSortAnimation() {
         BinaryInsertionSortWidget *binaryInsertionSortWidget = new BinaryInsertionSortWidget();
         binaryInsertionSortWidget->show();
+    }
+
+
+
+    void onShowEnhancedSelectionSortAnimation() {
+        EnhancedSelectionSortWidget *enhancedSelectionSortWidget = new EnhancedSelectionSortWidget();
+        enhancedSelectionSortWidget->show();
     }
 
     void onOpenSortingTime() {
@@ -420,6 +445,8 @@ private:
     QPushButton *insertionSortButton;
     QPushButton *binaryInsertionSortButton;
     QPushButton *batcherSortButton;
+    QPushButton *treeSortButton;
+    QPushButton *enhancedSelectionSortButton;
 };
 
 #endif // MAINWINDOW_H

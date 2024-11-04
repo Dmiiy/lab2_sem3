@@ -1,6 +1,4 @@
-//
-// Created by dimak on 03.11.2024.
-//
+
 
 #ifndef LAB2_SEM3_SORTINGSTUDENTS_H
 #define LAB2_SEM3_SORTINGSTUDENTS_H

@@ -14,8 +14,8 @@ public:
         resize(800, 600);
 
         // Инициализируем массив случайными значениями
-        for (int i = 0; i < 50; ++i) {
-            array.push_back(rand() % 500 + 50);
+        for (int i = 0; i < 100; ++i) {
+            array.push_back(rand() % 500 + 10);
         }
 
         // Устанавливаем начальные значения
@@ -27,7 +27,7 @@ public:
         connect(timer, &QTimer::timeout, this, &HeapSortWidget::nextStep);
 
         // Стартуем таймер
-        timer->start(100);
+        timer->start(50);
 
         // Фиксируем начальное время
         startTime = QTime::currentTime();

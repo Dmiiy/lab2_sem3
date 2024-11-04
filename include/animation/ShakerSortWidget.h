@@ -26,7 +26,7 @@ public:
         connect(timer, &QTimer::timeout, this, &ShakerSortWidget::nextStep);
 
         // Стартуем таймер
-        timer->start(0);
+        timer->start(20);
 
         // Фиксируем начальное время
         startTime = QTime::currentTime();

@@ -1,67 +1,92 @@
 #ifndef DYNAMICARRAY_INCLUDED
 #define DYNAMICARRAY_INCLUDED
 
-#include <cstring>
 #include <iostream>
-
-#include "Common.h"
 
 template<class T>
 class DynamicArray {
     int size;
+    int capacity;  // Текущая емкость массива
     T *data;
     bool *defined;  // Задан ли элемент массива?
 
     void checkIndex(int index) const {
         if (index < 0 || index >= size) {
-            throw IndexOutOfRange(string("Index ") + to_string(index) + " out of range 0.." + to_string(size - 1));
+            std::cerr << "Index " << index << " out of range 0.." << (size - 1) << "\n";
+            throw "Index out of range";
+        }
+    }
+
+    // Увеличивает емкость массива в два раза, если необходимо
+    void ensureCapacity(int minCapacity) {
+        if (minCapacity > capacity) {
+            int newCapacity = (minCapacity > capacity * 2) ? minCapacity : capacity * 2;
+            T *newData = new T[newCapacity];
+            bool *newDefined = new bool[newCapacity];
+
+            // Копируем старые данные в новый массив
+            for (int i = 0; i < size; ++i) {
+                newData[i] = data[i];
+                newDefined[i] = defined[i];
+            }
+
+            // Заполняем неиспользуемую часть нового массива
+            for (int i = size; i < newCapacity; ++i) {
+                newDefined[i] = false;
+            }
+
+            delete[] data;
+            delete[] defined;
+
+            data = newData;
+            defined = newDefined;
+            capacity = newCapacity;
         }
     }
 
 public:
-    //Создание объекта
-    DynamicArray(T *items, int count) : size(count) {
-        if (size < 0) throw IndexOutOfRange("Size < 0");
-        data = new T[size];
-        defined = new bool[size];
-        memcpy(data, items, sizeof(T) * size);
-        for (int i = 0; i < size; i++) {
+    // Создание объекта
+    DynamicArray(T *items, int count) : size(count), capacity(count) {
+        if (size < 0) throw "Size < 0";
+        data = new T[capacity];
+        defined = new bool[capacity];
+        for (int i = 0; i < size; ++i) {
+            data[i] = items[i];
             defined[i] = true;
         }
-    };
+    }
 
-    explicit DynamicArray(int count = 0) : size(count) {
-        if (size < 0) throw IndexOutOfRange("Count < 0");
-        data = new T[size];
-        defined = new bool[size];
-        for (int i = 0; i < size; i++) {
+    explicit DynamicArray(int count = 0) : size(count), capacity(count > 0 ? count : 1) {
+        if (size < 0) throw "Count < 0";
+        data = new T[capacity];
+        defined = new bool[capacity];
+        for (int i = 0; i < size; ++i) {
             defined[i] = false;
         }
     }
 
     DynamicArray(const DynamicArray<T> &dynamicArray) {
         size = dynamicArray.size;
-        // Копируем элементы
-        data = new T[dynamicArray.size];
-        memcpy(data, dynamicArray.data, dynamicArray.size * sizeof(T));
-        // Копируем какие элементы определены
-        defined = new bool[dynamicArray.size];
-        memcpy(defined, dynamicArray.defined, dynamicArray.size * sizeof(bool));
+        capacity = dynamicArray.capacity;
+        data = new T[capacity];
+        defined = new bool[capacity];
+        for (int i = 0; i < size; ++i) {
+            data[i] = dynamicArray.data[i];
+            defined[i] = dynamicArray.defined[i];
+        }
     }
 
-    //Деструктор
+    // Деструктор
     ~DynamicArray() {
         delete[] data;
-        data = nullptr;
         delete[] defined;
-        defined = nullptr;
     }
 
-    //Декомпозиция
+    // Декомпозиция
     T &get(int index) const {
         checkIndex(index);
         if (!defined[index]) {
-            throw IndexOutOfRange(string("Element with index ") + to_string(index) + " not defined");
+            throw "Element with index not defined";
         }
         return data[index];
     }
@@ -70,46 +95,37 @@ public:
         return size;
     }
 
-    //Операции
+    // Операции
     void set(int index, T value) {
         checkIndex(index);
         data[index] = value;
         defined[index] = true;
     }
 
-    T operator[](size_t index) const {  // Получение значения
+    T operator[](int index) const {
         return get(index);
     }
 
-    T &operator[](size_t index) {  // Чтобы делать присваивание так: dynamicArray[1] = 1233;
+    T &operator[](int index) {
         checkIndex(index);
         defined[index] = true;
         return data[index];
     }
 
+    // Изменяем метод resize для использования увеличивающейся емкости
     void resize(int newSize) {
-        if (newSize < 0) {
-            throw bad_array_new_length();
-        }
-        T *newData = new T[newSize];
-        bool *newDefined = new bool[newSize];
-        for (int i = 0; i < min(size, newSize); i++) {
-            newData[i] = data[i];
-            newDefined[i] = defined[i];
-        }
-        memcpy(newData, data, sizeof(T) * min(size, newSize));
-        memcpy(newDefined, defined, sizeof(bool) * min(size, newSize));
-        for (int i = size; i < newSize; i++) {
-            newDefined[i] = false;
+        if (newSize < 0) throw "Negative size error";
+        ensureCapacity(newSize);  // проверка и увеличение емкости при необходимости
+        if (newSize > size) {
+            for (int i = size; i < newSize; ++i) {
+                defined[i] = false;
+            }
         }
         size = newSize;
-        delete[] data;
-        data = newData;
-        delete[] defined;
-        defined = newDefined;
     }
+
     void define_resize(int newSize) {
-        for (int i = newSize - 1; i >= 1; i--) {
+        for (int i = newSize - 1; i >= 1; --i) {
             defined[i] = defined[i - 1];
         }
     }

@@ -16,15 +16,15 @@ public:
         resize(800, 600);
 
         // Инициализируем массив случайными значениями
-        for (int i = 0; i < 50; ++i) {
-            array.push_back(rand() % 500 + 50);
+        for (int i = 0; i < 100; ++i) {
+            array.push_back(rand() % 500 + 10);
         }
 
         // Соединяем таймер с шагом сортировки
         connect(timer, &QTimer::timeout, this, &QuickSortWidget::nextStep);
 
         // Стартуем таймер
-        timer->start(100);
+        timer->start(50);
 
         // Инициализация параметров для Quick Sort
         leftStack.push(0);
@@ -99,7 +99,7 @@ private slots:
 
                 int elapsed = startTime.msecsTo(QTime::currentTime());
                 setWindowTitle(QString("Сортировка завершена за %1 мс").arg(elapsed));
-                timer->start(50);  // Перезапускаем таймер для закрашивания
+                timer->start(20);  // Перезапускаем таймер для закрашивания
             }
         }
 

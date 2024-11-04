@@ -11,6 +11,7 @@
 #include "../include/sorting/ShellSort.h"
 #include "../include/sorting/BatcherSort.h"
 #include "../include/sorting/ShellSortGap.h"
+#include "../include/sequence/ArraySequence.h"
 
 TEST(BubbleSort, BasicSort) {
     ArraySequence<int> list;

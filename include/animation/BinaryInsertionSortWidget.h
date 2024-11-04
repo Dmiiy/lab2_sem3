@@ -16,15 +16,15 @@ public:
         resize(800, 600);
 
         // Инициализируем массив случайными значениями
-        for (int i = 0; i < 50; ++i) {
-            array.push_back(rand() % 500 + 50);  // Случайные числа в диапазоне от 50 до 550
+        for (int i = 0; i < 100; ++i) {
+            array.push_back(rand() % 500 + 10);  // Случайные числа в диапазоне от 50 до 550
         }
 
         // Соединяем таймер с шагом сортировки
         connect(timer, &QTimer::timeout, this, &BinaryInsertionSortWidget::nextStep);
 
         // Стартуем таймер
-        timer->start(100);
+        timer->start(50);
 
         // Фиксируем начальное время
         startTime = QTime::currentTime();
@@ -93,7 +93,7 @@ private slots:
             timer->stop();
             int elapsed = startTime.msecsTo(QTime::currentTime());
             setWindowTitle(QString("Сортировка завершена за %1 мс").arg(elapsed));
-            timer->start(50);  // Перезапускаем таймер для закрашивания
+            timer->start(20);  // Перезапускаем таймер для закрашивания
         }
 
         // Обновляем виджет (вызываем paintEvent)

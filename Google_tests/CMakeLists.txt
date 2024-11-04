@@ -9,7 +9,10 @@ include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 # 'test1.cpp test2.cpp' are source files with tests
 add_executable(Google_Tests tests.cpp
         smrt_ptr_tests.cpp
-        linked_list_tests.cpp
+        array_sequence.cpp
         sorters_tests.cpp
 )
 target_link_libraries(Google_Tests gtest gtest_main)
+include_directories(
+        include
+)

@@ -4,7 +4,6 @@
 #include <functional>
 #include "ISorter.h"
 
-
 template <typename T>
 class QuickSorter : public ISorter<T> {
 private:
@@ -31,18 +30,20 @@ private:
     // Функция для разбиения массива относительно опорного элемента
     int partition(ArraySequence<T> *sequence, int low, int high) {
         T pivot = (*sequence)[high];
-        int i = low - 1;
+        int i = low;
 
         for (int j = low; j < high; ++j) {
             if (comparator((*sequence)[j], pivot)) {
-                ++i;
                 helpClass.swap((*sequence)[i], (*sequence)[j]);
+                ++i;
             }
         }
-        helpClass.swap((*sequence)[i + 1], (*sequence)[high]);
-        return i + 1;
+        helpClass.swap((*sequence)[i], (*sequence)[high]);
+        return i;
     }
 };
+
 template <typename T>
 HelpClass QuickSorter<T>::helpClass;
+
 #endif // LAB2_SEM3_QUICKSORTER_H

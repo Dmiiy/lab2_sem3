@@ -21,6 +21,8 @@
 #include "sorting/InsertionSort.h"
 #include "sorting/BinaryInsertionSort.h"
 #include "sorting/BatcherSort.h"
+#include "sorting/TreeSorter.h"
+#include "sorting/EnhancedSelectionSorter.h"
 
 class SortingTime : public QMainWindow {
 //Q_OBJECT
@@ -82,6 +84,8 @@ private slots:
         runSingleSort<InsertionSorter<int>>("Insertion Sort", array);
         runSingleSort<BinaryInsertionSorter<int>>("Binary Insertion Sort", array);
         runSingleSort<BatcherSorter<int>>("Batcher Sort", array);
+        runSingleSort<TreeSorter<int>>("Tree Sort", array);
+        runSingleSort<EnhancedSelectionSorter<int>>("Enhanced Selection Sort", array);
 
     }
 
@@ -89,10 +93,9 @@ private slots:
     void runSingleSort(const QString &sortName, const ArraySequence<int> &array) {
         ArraySequence<int> copy = array;  // Создаем копию массива
 
+        SorterType sorter;
         QElapsedTimer timer;
         timer.start();
-
-        SorterType sorter;
         sorter.sort(&copy);
 
         int elapsed = timer.elapsed();

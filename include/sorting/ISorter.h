@@ -1,8 +1,9 @@
 #ifndef LAB2_SEM3_ISORTER_H
 #define LAB2_SEM3_ISORTER_H
 
-#include "../sequence/ArraySequence.h"
+
 #include "HelpClass.h"
+#include "../sequence/ArraySequence.h"
 
 template <typename T>
 class ISorter {
