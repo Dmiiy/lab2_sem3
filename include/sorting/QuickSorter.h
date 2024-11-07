@@ -8,10 +8,9 @@ template <typename T>
 class QuickSorter : public ISorter<T> {
 private:
     std::function<bool(const T&, const T&)> comparator;
-    static HelpClass helpClass;
 
 public:
-    QuickSorter(std::function<bool(const T&, const T&)> comp = helpClass.descending)
+    QuickSorter(std::function<bool(const T&, const T&)> comp)
             : comparator(comp) {}
 
     void sort(ArraySequence<T> *sequence) override {
@@ -37,16 +36,13 @@ private:
 
         for (int j = low; j < high; ++j) {
             if (comparator((*sequence)[j], pivot)) {
-                helpClass.swap((*sequence)[i], (*sequence)[j]);
+                std::swap((*sequence)[i], (*sequence)[j]);
                 ++i;
             }
         }
-        helpClass.swap((*sequence)[i], (*sequence)[high]);
+        std::swap((*sequence)[i], (*sequence)[high]);
         return i;
     }
 };
-
-template <typename T>
-HelpClass QuickSorter<T>::helpClass;
 
 #endif // LAB2_SEM3_QUICKSORTER_H

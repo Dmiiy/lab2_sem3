@@ -77,22 +77,21 @@ private slots:
         // Определение поля и порядка сортировки
         QString sortField = sortFieldComboBox->currentText();
         QString sortOrder = sortOrderComboBox->currentText();
-        HelpClass helpClass;
         // Выбор нужного компаратора на основе выбранного поля и порядка
         if (sortField == "Фамилия") {
             if (sortOrder == "По возрастанию") {
-                CountingSorter<User, decltype(helpClass.compareByLastNameAscending)> sorter(helpClass.compareByLastNameAscending);
+                CountingSorter<User, decltype(compareByLastNameAscending)> sorter(compareByLastNameAscending);
                 sorter.sort(&users);
             } else {
-                CountingSorter<User, decltype(helpClass.compareByLastNameDescending)> sorter(helpClass.compareByLastNameDescending);
+                CountingSorter<User, decltype(compareByLastNameDescending)> sorter(compareByLastNameDescending);
                 sorter.sort(&users);
             }
         } else if (sortField == "Возраст") {
             if (sortOrder == "По возрастанию") {
-                CountingSorter<User, decltype(helpClass.compareByAgeAscending)> sorter(helpClass.compareByAgeAscending);
+                CountingSorter<User, decltype(compareByAgeAscending)> sorter(compareByAgeAscending);
                 sorter.sort(&users);
             } else {
-                CountingSorter<User, decltype(helpClass.compareByAgeDescending)> sorter(helpClass.compareByAgeDescending);
+                CountingSorter<User, decltype(compareByAgeDescending)> sorter(compareByAgeDescending);
                 sorter.sort(&users);
             }
         }

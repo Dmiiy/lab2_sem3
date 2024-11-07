@@ -12,6 +12,7 @@ add_executable(lab2_sem3 main.cpp
         SortingStudents.h
         include/sorting/User.h
         include/sorting/SortExc.h
+        include/sequence/Statistics.h
 )
 
 target_link_libraries(lab2_sem3

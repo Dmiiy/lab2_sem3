@@ -25,6 +25,7 @@
 #include "animation/BinaryInsertionSortWidget.h"
 #include "SortingStudents.h"
 #include "animation/EnhancedSelectionSortWidget.h"
+#include "sequence/Statistics.h"
 
 class MainWindow : public QMainWindow {
 public:
@@ -201,62 +202,74 @@ private slots:
         // Определяем порядок сортировки
         bool ascendingOrder = sortOrderComboBoxForManual->currentText() == "По возрастанию";
 
-        HelpClass helpClass;
+
         // Получаем выбранный метод сортировки
         QString selectedSortMethod = sortMethodComboBoxForManual->currentText();
         if (selectedSortMethod == "Bubble Sort") {
-            BubbleSorter<int> sorter(ascendingOrder ? helpClass.ascending : helpClass.descending);
+            BubbleSorter<int> sorter(ascendingOrder ? ascending : descending);
             sorter.sort(&array);
         }
         if (selectedSortMethod == "Quick Sort") {
-            QuickSorter<int> sorter(ascendingOrder ? helpClass.ascending : helpClass.descending);
+            QuickSorter<int> sorter(ascendingOrder ? ascending : descending);
             sorter.sort(&array);
         }
         if (selectedSortMethod == "Counting Sort") {
-            CountingSorter<int> sorter(ascendingOrder ? helpClass.ascending : helpClass.descending);
+            CountingSorter<int> sorter(ascendingOrder ? ascending : descending);
             sorter.sort(&array);
         }
         if (selectedSortMethod == "Heap Sort") {
-            HeapSorter<int> sorter(ascendingOrder ? helpClass.ascending : helpClass.descending);
+            HeapSorter<int> sorter(ascendingOrder ? ascending : descending);
             sorter.sort(&array);
         }
         if (selectedSortMethod == "Selection Sort") {
-            SelectionSorter<int> sorter(ascendingOrder ? helpClass.ascending : helpClass.descending);
+            SelectionSorter<int> sorter(ascendingOrder ? ascending : descending);
             sorter.sort(&array);
         }
         if (selectedSortMethod == "Shaker Sort") {
-            ShakerSorter<int> sorter(ascendingOrder ? helpClass.ascending : helpClass.descending);
+            ShakerSorter<int> sorter(ascendingOrder ? ascending : descending);
             sorter.sort(&array);
         }
         if (selectedSortMethod == "Shell Sort") {
-            ShellSorter<int> sorter(ascendingOrder ? helpClass.ascending : helpClass.descending);
+            ShellSorter<int> sorter(ascendingOrder ? ascending : descending);
             sorter.sort(&array);
         }
         if (selectedSortMethod == "Merge Sort") {
-            MergeSorter<int> sorter(ascendingOrder ? helpClass.ascending : helpClass.descending);
+            MergeSorter<int> sorter(ascendingOrder ? ascending : descending);
             sorter.sort(&array);
         }
         if (selectedSortMethod == "Insertion Sort") {
-            InsertionSorter<int> sorter(ascendingOrder ? helpClass.ascending : helpClass.descending);
+            InsertionSorter<int> sorter(ascendingOrder ? ascending : descending);
             sorter.sort(&array);
         }
         if (selectedSortMethod == "Binary Insertion Sort") {
-            BinaryInsertionSorter<int> sorter(ascendingOrder ? helpClass.ascending : helpClass.descending);
+            BinaryInsertionSorter<int> sorter(ascendingOrder ? ascending : descending);
             sorter.sort(&array);
         }
         if (selectedSortMethod == "Batcher Sort") {
-            BatcherSorter<int> sorter(ascendingOrder ? helpClass.ascending : helpClass.descending);
+            BatcherSorter<int> sorter(ascendingOrder ? ascending : descending);
             sorter.sort(&array);
         }
         if (selectedSortMethod == "Tree Sort") {
-            TreeSorter<int> sorter(ascendingOrder ? helpClass.ascending : helpClass.descending);
+            TreeSorter<int> sorter(ascendingOrder ? ascending : descending);
             sorter.sort(&array);
         }
         if (selectedSortMethod == "Enhanced Selection Sort") {
-            EnhancedSelectionSorter<int> sorter(ascendingOrder ? helpClass.ascending : helpClass.descending);
+            EnhancedSelectionSorter<int> sorter(ascendingOrder ? ascending : descending);
             sorter.sort(&array);
         }
         displayArray(array, "Отсортированный массив:");
+
+        outputDisplay->append("Статистические показатели: ");
+
+        int mean= Statistics<int>::mean(array);
+        int median = Statistics<int>::median(array);
+        int meanSquare = Statistics<int>::meanSquare(array);
+        int standardDeviation = Statistics<int>::standardDeviation(array);
+
+        outputDisplay->append("Среднее значение: " + QString::number(mean));
+        outputDisplay->append("Медиана: " + QString::number(median));
+        outputDisplay->append("Среднеквадратичное значение: " + QString::number(meanSquare));
+        outputDisplay->append("Стандартное отклонение: " + QString::number(standardDeviation));
     }
 
     void onGenerateAndSort() {
@@ -293,61 +306,73 @@ private slots:
 
         // Получаем выбранный метод сортировки
         QString selectedSortMethod = sortMethodComboBoxForGeneration->currentText();
-        HelpClass helpClass;
+
         if (selectedSortMethod == "Bubble Sort") {
-            BubbleSorter<int> sorter(ascendingOrder ? helpClass.ascending : helpClass.descending);
+            BubbleSorter<int> sorter(ascendingOrder ? ascending : descending);
             sorter.sort(&array);
         }
         if (selectedSortMethod == "Quick Sort") {
-            QuickSorter<int> sorter(ascendingOrder ? helpClass.ascending : helpClass.descending);
+            QuickSorter<int> sorter(ascendingOrder ? ascending : descending);
             sorter.sort(&array);
         }
         if (selectedSortMethod == "Counting Sort") {
-            CountingSorter<int> sorter(ascendingOrder ? helpClass.ascending : helpClass.descending);
+            CountingSorter<int> sorter(ascendingOrder ? ascending : descending);
             sorter.sort(&array);
         }
         if (selectedSortMethod == "Heap Sort") {
-            HeapSorter<int> sorter(ascendingOrder ? helpClass.ascending : helpClass.descending);
+            HeapSorter<int> sorter(ascendingOrder ? ascending : descending);
             sorter.sort(&array);
         }
         if (selectedSortMethod == "Selection Sort") {
-            SelectionSorter<int> sorter(ascendingOrder ? helpClass.ascending : helpClass.descending);
+            SelectionSorter<int> sorter(ascendingOrder ? ascending : descending);
             sorter.sort(&array);
         }
         if (selectedSortMethod == "Shaker Sort") {
-            ShakerSorter<int> sorter(ascendingOrder ? helpClass.ascending : helpClass.descending);
+            ShakerSorter<int> sorter(ascendingOrder ? ascending : descending);
             sorter.sort(&array);
         }
         if (selectedSortMethod == "Shell Sort") {
-            ShellSorter<int> sorter(ascendingOrder ? helpClass.ascending : helpClass.descending);
+            ShellSorter<int> sorter(ascendingOrder ? ascending : descending);
             sorter.sort(&array);
         }
         if (selectedSortMethod == "Merge Sort") {
-            MergeSorter<int> sorter(ascendingOrder ? helpClass.ascending : helpClass.descending);
+            MergeSorter<int> sorter(ascendingOrder ? ascending : descending);
             sorter.sort(&array);
         }
         if (selectedSortMethod == "Insertion Sort") {
-            InsertionSorter<int> sorter(ascendingOrder ? helpClass.ascending : helpClass.descending);
+            InsertionSorter<int> sorter(ascendingOrder ? ascending : descending);
             sorter.sort(&array);
         }
         if (selectedSortMethod == "Binary Insertion Sort") {
-            BinaryInsertionSorter<int> sorter(ascendingOrder ? helpClass.ascending : helpClass.descending);
+            BinaryInsertionSorter<int> sorter(ascendingOrder ? ascending : descending);
             sorter.sort(&array);
         }
         if (selectedSortMethod == "Batcher Sort") {
-            BatcherSorter<int> sorter(ascendingOrder ? helpClass.ascending : helpClass.descending);
+            BatcherSorter<int> sorter(ascendingOrder ? ascending : descending);
             sorter.sort(&array);
         }
         if (selectedSortMethod == "Tree Sort") {
-            TreeSorter<int> sorter(ascendingOrder ? helpClass.ascending : helpClass.descending);
+            TreeSorter<int> sorter(ascendingOrder ? ascending : descending);
             sorter.sort(&array);
         }
         if (selectedSortMethod == "Enhanced Selection Sort") {
-            EnhancedSelectionSorter<int> sorter(ascendingOrder ? helpClass.ascending : helpClass.descending);
+            EnhancedSelectionSorter<int> sorter(ascendingOrder ? ascending : descending);
             sorter.sort(&array);
         }
 
+
         displayArray(array, "Отсортированный массив:");
+        outputDisplay->append("Статистические показатели: ");
+
+        int mean= Statistics<int>::mean(array);
+        int median = Statistics<int>::median(array);
+        int meanSquare = Statistics<int>::meanSquare(array);
+        int standardDeviation = Statistics<int>::standardDeviation(array);
+
+        outputDisplay->append("Среднее значение: " + QString::number(mean));
+        outputDisplay->append("Медиана: " + QString::number(median));
+        outputDisplay->append("Среднеквадратичное значение: " + QString::number(meanSquare));
+        outputDisplay->append("Стандартное отклонение: " + QString::number(standardDeviation));
     }
 
     void displayArray(const ArraySequence<int>& array, const QString& message) {

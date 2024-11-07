@@ -9,10 +9,8 @@ template <typename T>
 class BinaryInsertionSorter : public ISorter<T> {
 private:
     std::function<bool(const T&, const T&)> comparator;
-    static HelpClass helpClass;
-
 public:
-    BinaryInsertionSorter(std::function<bool(const T&, const T&)> comp = helpClass.descending)
+    BinaryInsertionSorter(std::function<bool(const T&, const T&)> comp)
             : comparator(comp) {}
 
     void sort(ArraySequence<T> *sequence) override{
@@ -45,6 +43,4 @@ private:
         return low;
     }
 };
-template <typename T>
-HelpClass BinaryInsertionSorter<T>::helpClass;
 #endif // BINARYINSERTIONSORTER_H

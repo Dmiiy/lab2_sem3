@@ -8,10 +8,9 @@ template <typename T>
 class EnhancedSelectionSorter : public ISorter<T> {
 private:
     std::function<bool(const T&, const T&)> comparator;
-    static HelpClass helpClass;
 
 public:
-    EnhancedSelectionSorter(std::function<bool(const T&, const T&)> comp = helpClass.ascending)
+    EnhancedSelectionSorter(std::function<bool(const T&, const T&)> comp)
             : comparator(comp) {}
 
     void sort(ArraySequence<T> *sequence) override {
@@ -27,13 +26,10 @@ public:
                 }
             }
             if (minIndex != i) {
-                helpClass.swap((*sequence)[i], (*sequence)[minIndex]);
+                std::swap((*sequence)[i], (*sequence)[minIndex]);
             }
         }
     }
 };
-
-template <typename T>
-HelpClass EnhancedSelectionSorter<T>::helpClass;
 
 #endif // ENHANCED_SELECTION_SORTER_H

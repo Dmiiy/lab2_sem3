@@ -9,10 +9,9 @@ template <typename T>
 class ShellSorter : public ISorter<T> {
 private:
     std::function<bool(const T&, const T&)> comparator;
-    static HelpClass helpClass;
 
 public:
-    ShellSorter(std::function<bool(const T&, const T&)> comp = helpClass.descending)
+    ShellSorter(std::function<bool(const T&, const T&)> comp)
             : comparator(comp) {}
 
     void sort(ArraySequence<T> *sequence) override {
@@ -37,6 +36,4 @@ public:
         }
     }
 };
-template <typename T>
-HelpClass ShellSorter<T>::helpClass;
 #endif // SHELLSORTER_H

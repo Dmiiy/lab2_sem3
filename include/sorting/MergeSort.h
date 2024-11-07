@@ -9,10 +9,8 @@ template <typename T>
 class MergeSorter : public ISorter<T> {
 private:
     std::function<bool(const T&, const T&)> comparator;
-    static HelpClass helpClass;
-
 public:
-    MergeSorter(std::function<bool(const T&, const T&)> comp = helpClass.descending)
+    MergeSorter(std::function<bool(const T&, const T&)> comp)
             : comparator(comp) {}
 
     void sort(ArraySequence<T> *sequence) override {
@@ -69,6 +67,4 @@ private:
     }
 };
 
-template <typename T>
-HelpClass MergeSorter<T>::helpClass;
 #endif // MERGESORTER_H

@@ -8,11 +8,9 @@ template <typename T>
 class ShellSorterWithGap : public ISorter<T> {
 private:
     std::function<bool(const T&, const T&)> comparator;
-    ArraySequence<int> gaps; // Изменено на ArraySequence
-    static HelpClass helpClass;
-
+    ArraySequence<int> gaps;
 public:
-    ShellSorterWithGap(ArraySequence<int> gapSequence, std::function<bool(const T&, const T&)> comp = helpClass.descending)
+    ShellSorterWithGap(ArraySequence<int> gapSequence, std::function<bool(const T&, const T&)> comp)
             : gaps(gapSequence), comparator(comp) {}
 
     void sort(ArraySequence<T> *sequence) override {
@@ -35,7 +33,4 @@ public:
         }
     }
 };
-
-template <typename T>
-HelpClass ShellSorterWithGap<T>::helpClass;
 #endif // SHELLSORTER_GAP_H

@@ -2,7 +2,7 @@
 #define LAB2_SEM3_ISORTER_H
 
 
-#include "HelpClass.h"
+#include "Comps.h"
 #include "../sequence/ArraySequence.h"
 #include "SortExc.h"
 #include "User.h"

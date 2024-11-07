@@ -8,10 +8,8 @@ template <typename T>
 class HeapSorter : public ISorter<T> {
 private:
     std::function<bool(const T&, const T&)> comparator;
-    static HelpClass helpClass;
-
 public:
-    HeapSorter(std::function<bool(const T&, const T&)> comp = helpClass.descending)
+    HeapSorter(std::function<bool(const T&, const T&)> comp)
             : comparator(comp) {}
 
     void sort(ArraySequence<T> *sequence) override {
@@ -26,7 +24,7 @@ public:
 
         // Один за другим извлекаем элементы из кучи
         for (int i = n - 1; i > 0; i--) {
-            helpClass.swap((*sequence)[0], (*sequence)[i]); // Перемещение текущего корня в конец
+            std::swap((*sequence)[0], (*sequence)[i]); // Перемещение текущего корня в конец
             heapify(sequence, i, 0); // Вызываем heapify на уменьшенной куче
         }
     }
@@ -47,13 +45,12 @@ private:
 
         // Если самый большой элемент не корень
         if (largest != i) {
-            helpClass.swap((*sequence)[i], (*sequence)[largest]); // Обмен
+            std::swap((*sequence)[i], (*sequence)[largest]); // Обмен
 
             // Рекурсивно преобразуем в куче затронутое поддерево
             heapify(sequence, n, largest);
         }
     }
 };
-template <typename T>
-HelpClass HeapSorter<T>::helpClass;
+
 #endif // HEAPSORTER_H

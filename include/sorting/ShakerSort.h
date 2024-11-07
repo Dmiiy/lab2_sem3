@@ -8,10 +8,8 @@ template <typename T>
 class ShakerSorter : public ISorter<T> {
 private:
     std::function<bool(const T&, const T&)> comparator;
-    static HelpClass helpClass;
-
 public:
-    ShakerSorter(std::function<bool(const T&, const T&)> comp = helpClass.descending)
+    ShakerSorter(std::function<bool(const T&, const T&)> comp)
             : comparator(comp) {}
 
     void sort(ArraySequence<T> *sequence) override {
@@ -27,7 +25,7 @@ public:
 
             for (int i = start; i < end; ++i) {
                 if (!comparator((*sequence)[i], (*sequence)[i + 1])) {
-                    helpClass.swap((*sequence)[i], (*sequence)[i + 1]);
+                    std::swap((*sequence)[i], (*sequence)[i + 1]);
                     swapped = true;
                 }
             }
@@ -40,7 +38,7 @@ public:
 
             for (int i = end; i > start; --i) {
                 if (!comparator((*sequence)[i - 1], (*sequence)[i])) {
-                    helpClass.swap((*sequence)[i - 1], (*sequence)[i]);
+                    std::swap((*sequence)[i - 1], (*sequence)[i]);
                     swapped = true;
                 }
             }
@@ -49,6 +47,5 @@ public:
         }
     }
 };
-template <typename T>
-HelpClass ShakerSorter<T>::helpClass;
+
 #endif // SHAKERSORTER_H

@@ -9,10 +9,10 @@ template <typename T>
 class BatcherSorter : public ISorter<T> {
 private:
     std::function<bool(const T&, const T&)> comparator;
-    static HelpClass helpClass;
+    //static HelpClass helpClass;
 
 public:
-    BatcherSorter(std::function<bool(const T&, const T&)> comp = helpClass.descending)
+    BatcherSorter(std::function<bool(const T&, const T&)> comp)
             : comparator(comp) {}
 
     void sort(ArraySequence<T> *sequence) override {
@@ -64,6 +64,6 @@ private:
         }
     }
 };
-template <typename T>
-HelpClass BatcherSorter<T>::helpClass;
+//template <typename T>
+//HelpClass BatcherSorter<T>::helpClass;
 #endif // BATCHERSORTER_H

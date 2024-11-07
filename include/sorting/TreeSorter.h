@@ -18,7 +18,6 @@ private:
 
     TreeNode* root = nullptr;
     std::function<bool(const T&, const T&)> comparator;
-    static HelpClass helpClass;
 
     void insert(TreeNode*& node, const T& value) {
         if (node == nullptr) {
@@ -39,7 +38,7 @@ private:
     }
 
 public:
-    TreeSorter(std::function<bool(const T&, const T&)> comp = helpClass.ascending)
+    TreeSorter(std::function<bool(const T&, const T&)> comp)
             : comparator(comp) {}
 
     void sort(ArraySequence<T> *sequence) override {
@@ -79,8 +78,4 @@ public:
         clear(root);
     }
 };
-
-template <typename T>
-HelpClass TreeSorter<T>::helpClass;
-
 #endif // TREE_SORTER_H

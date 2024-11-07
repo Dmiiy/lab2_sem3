@@ -92,8 +92,7 @@ private slots:
     template <typename SorterType>
     void runSingleSort(const QString &sortName, const ArraySequence<int> &array) {
         ArraySequence<int> copy = array;  // Создаем копию массива
-        HelpClass helpClass;
-        SorterType sorter(helpClass.ascending);
+        SorterType sorter(ascending);
         QElapsedTimer timer;
         timer.start();
         sorter.sort(&copy);
