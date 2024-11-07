@@ -31,7 +31,7 @@ class MainWindow : public QMainWindow {
 public:
     MainWindow(QWidget *parent = nullptr) : QMainWindow(parent) {
         setWindowTitle("Сортировка массива");
-        resize(800, 600);
+        resize(800, 800);
 
         QWidget *mainWidget = new QWidget;
         auto *mainLayout = new QVBoxLayout(mainWidget);
@@ -130,7 +130,6 @@ public:
         mergeSortButton = new QPushButton("Merge Sort");
         insertionSortButton = new QPushButton("Insertion Sort");
         binaryInsertionSortButton = new QPushButton("Binary Insertion Sort");
-        batcherSortButton = new QPushButton("Batcher Sort");
         enhancedSelectionSortButton = new QPushButton("Enhanced Selection Sort");
 
 
@@ -144,7 +143,6 @@ public:
         animationLayout->addWidget(mergeSortButton);
         animationLayout->addWidget(insertionSortButton);
         animationLayout->addWidget(binaryInsertionSortButton);
-        animationLayout->addWidget(batcherSortButton);
         animationLayout->addWidget(enhancedSelectionSortButton);
 
         // Кнопка для перехода к замеру времени
@@ -469,7 +467,6 @@ private:
     QPushButton *mergeSortButton;
     QPushButton *insertionSortButton;
     QPushButton *binaryInsertionSortButton;
-    QPushButton *batcherSortButton;
     QPushButton *treeSortButton;
     QPushButton *enhancedSelectionSortButton;
 };
