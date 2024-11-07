@@ -50,7 +50,7 @@
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 16,
+				"line" : 17,
 				"parent" : 0
 			},
 			{
@@ -176,7 +176,7 @@
 			{
 				"command" : 7,
 				"file" : 0,
-				"line" : 22,
+				"line" : 23,
 				"parent" : 0
 			}
 		]
@@ -369,7 +369,8 @@
 				1,
 				2,
 				3,
-				4
+				4,
+				5
 			]
 		}
 	],
@@ -399,6 +400,11 @@
 		{
 			"backtrace" : 1,
 			"path" : "include/sorting/User.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/sorting/SortExc.h",
 			"sourceGroupIndex" : 1
 		}
 	],

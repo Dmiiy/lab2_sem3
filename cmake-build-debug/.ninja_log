@@ -1,8 +1,8 @@
 # ninja log v5
-4	2192	7524403262556508	CMakeFiles/lab2_sem3.dir/main.cpp.obj	4873c030f83cb2e2
+3	2237	7525298843713404	CMakeFiles/lab2_sem3.dir/main.cpp.obj	4873c030f83cb2e2
 8	1096	7524401643490733	Google_tests/CMakeFiles/Google_Tests.dir/smrt_ptr_tests.cpp.obj	2ab9479420c39098
-2192	2660	7524403267247846	lab2_sem3.exe	9324563f097ab56a
-2	290	7524405584877920	build.ninja	6b2f85cb4cc025e6
+2237	2703	7525298848376345	lab2_sem3.exe	9324563f097ab56a
+2	290	7525305828280218	build.ninja	6b2f85cb4cc025e6
 15	1151	7510303788444700	Google_tests/lib/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.obj	2746a801ec290a45
 866	4113	7524346264507353	Google_tests/Google_Tests.exe	3f988b5927b766ff
 3	782	7524401640374482	Google_tests/CMakeFiles/Google_Tests.dir/tests.cpp.obj	70ee43706fe4e312
@@ -11,4 +11,12 @@
 12	5874	7510303835531435	Google_tests/lib/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.obj	b65cd3fd1eabc153
 5875	8676	7510303863681873	lib/libgtest.a	31260fa60841115a
 8676	8714	7510303864080476	lib/libgtest_main.a	f67997b1bac8ad1d
-10	966	7524401642204969	Google_tests/CMakeFiles/Google_Tests.dir/array_sequence.cpp.obj	364774f045ac202f
+33	1793	7525293023218575	Google_tests/CMakeFiles/Google_Tests.dir/array_sequence.cpp.obj	364774f045ac202f
+4	2408	7525332486990493	CMakeFiles/lab2_sem3.dir/main.cpp.obj	4873c030f83cb2e2
+2408	2906	7525332491976831	lab2_sem3.exe	9324563f097ab56a
+4	2728	7526070227666769	CMakeFiles/lab2_sem3.dir/main.cpp.obj	4873c030f83cb2e2
+2729	3529	7526070235664661	lab2_sem3.exe	9324563f097ab56a
+5	2630	7526181563147833	CMakeFiles/lab2_sem3.dir/main.cpp.obj	4873c030f83cb2e2
+2630	3237	7526181569222919	lab2_sem3.exe	9324563f097ab56a
+4	2711	7527035551180624	CMakeFiles/lab2_sem3.dir/main.cpp.obj	4873c030f83cb2e2
+2711	3574	7527035559809528	lab2_sem3.exe	9324563f097ab56a

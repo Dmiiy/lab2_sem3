@@ -43,20 +43,29 @@ public:
             : comparator(comp) {}
 
     void sort(ArraySequence<T> *sequence) override {
-        if (sequence==nullptr) {
+        if (sequence == nullptr) {
             throw SortExc("Sequence is null");
         }
+
+        // Вставка значений в дерево
         for (int i = 0; i < sequence->getLength(); ++i) {
             insert(root, (*sequence)[i]);
         }
 
+        // Сортировка значений через обход
         ArraySequence<T> sortedValues;
         inorderTraversal(root, sortedValues);
 
+        // Копирование отсортированных значений обратно в последовательность
         for (int i = 0; i < sortedValues.getLength(); ++i) {
             (*sequence)[i] = sortedValues[i];
         }
+
+        // Очистка дерева после сортировки
+        clear(root);
+        root = nullptr; 
     }
+
 
     void clear(TreeNode* node) {
         if (node != nullptr) {

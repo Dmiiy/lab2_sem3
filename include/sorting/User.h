@@ -25,6 +25,10 @@ public:
     int getAge() const { return age; }
     void setAge(int newAge) { age = newAge; }
 
+    bool operator==(const User &other) const {
+        return firstName == other.firstName && lastName == other.lastName && age == other.age;
+    }
+
     static User generateRandomUser() {
         QString firstName = generateRandomString(10);
         QString lastName = generateRandomString(10);

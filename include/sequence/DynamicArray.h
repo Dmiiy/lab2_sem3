@@ -83,7 +83,14 @@ public:
     }
 
     // Декомпозиция
-    T &get(int index) const {
+    T &get(int index) {
+        checkIndex(index);
+        if (!defined[index]) {
+            throw "Element with index not defined";
+        }
+        return data[index];
+    }
+    const T &get(int index) const {
         checkIndex(index);
         if (!defined[index]) {
             throw "Element with index not defined";
@@ -115,11 +122,6 @@ public:
     void resize(int newSize) {
         if (newSize < 0) throw "Negative size error";
         ensureCapacity(newSize);  // проверка и увеличение емкости при необходимости
-        if (newSize > size) {
-            for (int i = size; i < newSize; ++i) {
-                defined[i] = false;
-            }
-        }
         size = newSize;
     }
 

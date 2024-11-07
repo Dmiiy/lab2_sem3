@@ -16,6 +16,7 @@
 #include <algorithm>
 #include "sorting/User.h"
 #include "sorting/QuickSorter.h"
+#include "sorting/CountingSort.h"
 
 
 class SortingStudents : public QMainWindow {
@@ -80,18 +81,18 @@ private slots:
         // Выбор нужного компаратора на основе выбранного поля и порядка
         if (sortField == "Фамилия") {
             if (sortOrder == "По возрастанию") {
-                QuickSorter sorter(helpClass.compareByLastNameAscending);
+                CountingSorter<User, decltype(helpClass.compareByLastNameAscending)> sorter(helpClass.compareByLastNameAscending);
                 sorter.sort(&users);
             } else {
-                QuickSorter sorter(helpClass.compareByLastNameDescending);
+                CountingSorter<User, decltype(helpClass.compareByLastNameDescending)> sorter(helpClass.compareByLastNameDescending);
                 sorter.sort(&users);
             }
         } else if (sortField == "Возраст") {
             if (sortOrder == "По возрастанию") {
-                QuickSorter sorter(helpClass.compareByAgeAscending);
+                CountingSorter<User, decltype(helpClass.compareByAgeAscending)> sorter(helpClass.compareByAgeAscending);
                 sorter.sort(&users);
             } else {
-                QuickSorter sorter(helpClass.compareByAgeDescending);
+                CountingSorter<User, decltype(helpClass.compareByAgeDescending)> sorter(helpClass.compareByAgeDescending);
                 sorter.sort(&users);
             }
         }

@@ -5,6 +5,7 @@
 #include "HelpClass.h"
 #include "../sequence/ArraySequence.h"
 #include "SortExc.h"
+#include "User.h"
 
 template <typename T>
 class ISorter {
