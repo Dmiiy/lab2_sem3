@@ -166,7 +166,7 @@ TEST(CountingSort, BasicSort) {
     list.append(2);
     list.append(3);
 
-    CountingSorter<int> sorter;
+    CountingSorter<int> sorter([](const int &a, const int &b) { return a < b; });
     sorter.sort(&list);
 
     ASSERT_EQ(list.get(0), 1);
