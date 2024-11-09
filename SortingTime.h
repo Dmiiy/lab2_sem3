@@ -75,7 +75,7 @@ private slots:
         // Запускаем сортировки и замеряем время
         runSingleSort<BubbleSorter<int>>("Bubble Sort", array);
         runSingleSort<QuickSorter<int>>("Quick Sort", array);
-        runSingleSort<CountingSorter<int>>("Counting Sort", array);
+        runCountingSort<CountingSorter<int, int>>("Counting Sort", array);
         runSingleSort<HeapSorter<int>>("Heap Sort", array);
         runSingleSort<SelectionSorter<int>>("Selection Sort", array);
         runSingleSort<ShakerSorter<int>>("Shaker Sort", array);
@@ -93,6 +93,18 @@ private slots:
     void runSingleSort(const QString &sortName, const ArraySequence<int> &array) {
         ArraySequence<int> copy = array;  // Создаем копию массива
         SorterType sorter(ascending);
+        QElapsedTimer timer;
+        timer.start();
+        sorter.sort(&copy);
+
+        int elapsed = timer.elapsed();
+        addResult(sortName, elapsed);
+    }
+
+    template <typename SorterType>
+    void runCountingSort(const QString &sortName, const ArraySequence<int> &array) {
+        ArraySequence<int> copy = array;  // Создаем копию массива
+        SorterType sorter(ascending, intExtractor);
         QElapsedTimer timer;
         timer.start();
         sorter.sort(&copy);

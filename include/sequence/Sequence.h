@@ -24,6 +24,7 @@ public:
     virtual void append(T item) = 0;
 
     virtual void prepend(T item) = 0;
+    virtual void clear() = 0;
 
     virtual void insertAt(T item, int index) = 0;
 

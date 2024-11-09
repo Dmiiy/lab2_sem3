@@ -81,6 +81,17 @@ public:
         delete[] data;
         delete[] defined;
     }
+    void clear() {
+        delete[] data;
+        delete[] defined;
+
+        // Сброс массива до начального состояния
+        size = 0;
+        capacity = 1;
+        data = new T[capacity];
+        defined = new bool[capacity]{false};
+    }
+
 
     // Декомпозиция
     T &get(int index) {
@@ -90,6 +101,7 @@ public:
         }
         return data[index];
     }
+
     const T &get(int index) const {
         checkIndex(index);
         if (!defined[index]) {
@@ -126,13 +138,16 @@ public:
     }
 
     void define_resize(int newSize) {
+        if (newSize < 0) throw "Negative size error";
         for (int i = newSize - 1; i >= 1; --i) {
             defined[i] = defined[i - 1];
         }
     }
 
     void define_set(int index, bool value) {
-        defined[index] = value;
+        if (index >= 0 && index < size) {
+            defined[index] = value;
+        }
     }
 };
 

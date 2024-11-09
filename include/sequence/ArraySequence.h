@@ -100,6 +100,9 @@ public:
         data.define_resize(size - 1);
         data.resize(size - 1);
     }
+    void clear() override {
+        data.clear();
+    }
 
     // Виртуальный деструктор
     virtual ~ArraySequence<T>() {}

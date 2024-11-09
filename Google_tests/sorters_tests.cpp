@@ -11,7 +11,6 @@
 #include "../include/sorting/ShellSort.h"
 #include "../include/sorting/BatcherSort.h"
 #include "../include/sorting/ShellSortGap.h"
-#include "../include/sequence/ArraySequence.h"
 
 TEST(BubbleSort, BasicSort) {
     ArraySequence<int> list;
@@ -166,7 +165,7 @@ TEST(CountingSort, BasicSort) {
     list.append(2);
     list.append(3);
 
-    CountingSorter<int> sorter([](const int &a, const int &b) { return a < b; });
+    CountingSorter<int,int> sorter([](const int &a, const int &b) { return a < b; },intExtractor);
     sorter.sort(&list);
 
     ASSERT_EQ(list.get(0), 1);

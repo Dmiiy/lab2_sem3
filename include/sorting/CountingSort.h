@@ -5,31 +5,35 @@
 #include <functional>
 #include "ISorter.h"
 
-template <typename T, typename Comparator = std::function<bool(const T&, const T&)>>
+template <typename T, typename Key>
 class CountingSorter : public ISorter<T> {
 private:
-    Comparator comparator;
+    std::function<bool(const Key&, const Key&)> comparator;
+    std::function<Key(const T&)> keyExtractor;
 
 public:
-    CountingSorter(Comparator comp) : comparator(comp) {}
+    CountingSorter(std::function<bool(const Key&, const Key&)> comp, std::function<Key(const T&)> extractor)
+            : comparator(comp), keyExtractor(extractor) {}
 
     void sort(ArraySequence<T>* sequence) override {
         if (!sequence || sequence->getLength() == 0) {
             throw SortExc("Sequence is null");
-        };
+        }
 
-        std::map<T, int, Comparator> countMap(comparator);
+        std::map<Key, ArraySequence<T>, std::function<bool(const Key&, const Key&)>> countMap(comparator);
 
-        // Подсчет количества вхождений каждого элемента
+        // Подсчёт количества вхождений каждого элемента по ключу
         for (int i = 0; i < sequence->getLength(); ++i) {
-            countMap[(*sequence)[i]]++;
+            T item = (*sequence)[i];
+            Key key = keyExtractor(item);
+            countMap[key].append(item);
         }
 
         int index = 0;
-
         for (const auto& pair : countMap) {
-            for (int j = 0; j < pair.second; ++j) {
-                (*sequence)[index++] = pair.first;
+            const ArraySequence<T>& itemsWithSameKey = pair.second;
+            for (int j = 0; j < itemsWithSameKey.getLength(); ++j) {
+                (*sequence)[index++] = itemsWithSameKey[j];
             }
         }
     }

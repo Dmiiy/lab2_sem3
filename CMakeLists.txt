@@ -13,6 +13,7 @@ add_executable(lab2_sem3 main.cpp
         include/sorting/User.h
         include/sorting/SortExc.h
         include/sequence/Statistics.h
+        FileSorting.h
 )
 
 target_link_libraries(lab2_sem3

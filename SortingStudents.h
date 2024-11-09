@@ -80,18 +80,18 @@ private slots:
         // Выбор нужного компаратора на основе выбранного поля и порядка
         if (sortField == "Фамилия") {
             if (sortOrder == "По возрастанию") {
-                CountingSorter<User, decltype(compareByLastNameAscending)> sorter(compareByLastNameAscending);
+                CountingSorter<User, QString> sorter(compareByLastNameAscending, lastNameExtractor);
                 sorter.sort(&users);
             } else {
-                CountingSorter<User, decltype(compareByLastNameDescending)> sorter(compareByLastNameDescending);
+                CountingSorter<User, QString> sorter(compareByLastNameDescending, lastNameExtractor);
                 sorter.sort(&users);
             }
         } else if (sortField == "Возраст") {
             if (sortOrder == "По возрастанию") {
-                CountingSorter<User, decltype(compareByAgeAscending)> sorter(compareByAgeAscending);
+                CountingSorter<User, int> sorter(compareByAgeAscending, ageExtractor);
                 sorter.sort(&users);
             } else {
-                CountingSorter<User, decltype(compareByAgeDescending)> sorter(compareByAgeDescending);
+                CountingSorter<User, int> sorter(compareByAgeDescending, ageExtractor);
                 sorter.sort(&users);
             }
         }

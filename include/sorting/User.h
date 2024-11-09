@@ -29,6 +29,10 @@ public:
         return firstName == other.firstName && lastName == other.lastName && age == other.age;
     }
 
+    bool operator!=(const User &other) const {
+        return !(*this == other);
+    }
+
     static User generateRandomUser() {
         QString firstName = generateRandomString(10);
         QString lastName = generateRandomString(10);

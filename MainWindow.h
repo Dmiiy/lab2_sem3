@@ -26,6 +26,7 @@
 #include "SortingStudents.h"
 #include "animation/EnhancedSelectionSortWidget.h"
 #include "sequence/Statistics.h"
+#include "FileSorting.h"
 
 class MainWindow : public QMainWindow {
 public:
@@ -148,6 +149,7 @@ public:
         // Кнопка для перехода к замеру времени
         QPushButton *openSortingTimeButton = new QPushButton("Замер времени сортировок");
         QPushButton *openSortingStudentsButton = new QPushButton("Сортировка для студентов");
+        QPushButton *fileSortButton = new QPushButton("Сортировка из файлов");
 
         // Компоновка основных элементов
         mainLayout->addWidget(manualInputBox);
@@ -156,6 +158,7 @@ public:
         mainLayout->addWidget(animationButtonsBox);
         mainLayout->addWidget(openSortingTimeButton);
         mainLayout->addWidget(openSortingStudentsButton);
+        mainLayout->addWidget(fileSortButton);
 
         setCentralWidget(mainWidget);
 
@@ -172,9 +175,10 @@ public:
         connect(insertionSortButton, &QPushButton::clicked, this, &MainWindow::onShowInsertionSortAnimation);
         connect(binaryInsertionSortButton, &QPushButton::clicked, this, &MainWindow::onShowBinaryInsertionSortAnimation);
         connect(enhancedSelectionSortButton, &QPushButton::clicked, this, &MainWindow::onShowEnhancedSelectionSortAnimation);
-        //connect(batcherSortButton, &QPushButton::clicked, this, &MainWindow::onShowBatcherSortAnimation);
         connect(openSortingTimeButton, &QPushButton::clicked, this, &MainWindow::onOpenSortingTime);
         connect(openSortingStudentsButton, &QPushButton::clicked, this, &MainWindow::onOpenSortingStudents);
+        connect(fileSortButton, &QPushButton::clicked, this, &MainWindow::onOpenFileSorting);
+
 
     }
 
@@ -212,7 +216,7 @@ private slots:
             sorter.sort(&array);
         }
         if (selectedSortMethod == "Counting Sort") {
-            CountingSorter<int> sorter(ascendingOrder ? ascending : descending);
+            CountingSorter<int, int> sorter(ascendingOrder ? ascending : descending, intExtractor);
             sorter.sort(&array);
         }
         if (selectedSortMethod == "Heap Sort") {
@@ -314,7 +318,7 @@ private slots:
             sorter.sort(&array);
         }
         if (selectedSortMethod == "Counting Sort") {
-            CountingSorter<int> sorter(ascendingOrder ? ascending : descending);
+            CountingSorter<int, int> sorter(ascendingOrder ? ascending : descending, intExtractor);
             sorter.sort(&array);
         }
         if (selectedSortMethod == "Heap Sort") {
@@ -444,6 +448,10 @@ private slots:
     void onOpenSortingStudents() {
         SortingStudents *sortingStudentsWindow = new SortingStudents();
         sortingStudentsWindow->show();
+    }
+    void onOpenFileSorting() {
+        SorterWindow *fileSortingWindow = new SorterWindow();
+        fileSortingWindow->show();
     }
 
 private:
