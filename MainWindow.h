@@ -450,7 +450,7 @@ private slots:
         sortingStudentsWindow->show();
     }
     void onOpenFileSorting() {
-        SorterWindow *fileSortingWindow = new SorterWindow();
+        FileSorting *fileSortingWindow = new FileSorting();
         fileSortingWindow->show();
     }
 

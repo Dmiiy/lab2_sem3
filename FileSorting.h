@@ -13,13 +13,13 @@
 #include "sequence/ArraySequence.h"
 #include "sorting/QuickSorter.h"
 
-class SorterWindow : public QWidget {
+class FileSorting : public QWidget {
 
 public:
-    SorterWindow(QWidget *parent = nullptr) : QWidget(parent), sequence(new ArraySequence<int>()) {
+    FileSorting(QWidget *parent = nullptr) : QWidget(parent), sequence(new ArraySequence<int>()) {
         // Инициализация компонентов UI
         setWindowTitle("Integer File Sorter");
-        setFixedSize(500, 300);
+        setFixedSize(800, 300);
 
         logEdit = new QTextEdit(this); // Текстовый редактор для логов
         logEdit->setReadOnly(true);
@@ -41,12 +41,12 @@ public:
 
         setLayout(mainLayout);
 
-        connect(loadButton, &QPushButton::clicked, this, &SorterWindow::loadFile);
-        connect(sortAscButton, &QPushButton::clicked, this, &SorterWindow::sortAndSaveAscending);
-        connect(sortDescButton, &QPushButton::clicked, this, &SorterWindow::sortAndSaveDescending);
+        connect(loadButton, &QPushButton::clicked, this, &FileSorting::loadFile);
+        connect(sortAscButton, &QPushButton::clicked, this, &FileSorting::sortAndSaveAscending);
+        connect(sortDescButton, &QPushButton::clicked, this, &FileSorting::sortAndSaveDescending);
     }
 
-    ~SorterWindow() override {
+    ~FileSorting() override {
         delete sequence;
     }
 
